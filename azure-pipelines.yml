@@ -1,4 +1,5 @@
 trigger:
+
   - master # Se dispara automáticamente al hacer push a la rama main
 
 pool:
