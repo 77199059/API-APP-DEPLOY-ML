@@ -5,7 +5,7 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  proyecto: '**/*.csproj'
+  proyecto: '**/veterinariweb.csproj'
   buildConfiguration: 'Release'
   dotnetVersion: '8.0.x' # Asegúrate de que coincida con la versión de .NET de tu proyecto
 
