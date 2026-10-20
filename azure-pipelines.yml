@@ -1,6 +1,5 @@
 trigger:
-
-  - master # Se dispara automáticamente al hacer push a la rama main
+  - master # Se dispara automáticamente al hacer push a la rama master
 
 pool:
   vmImage: 'windows-2022'
@@ -8,7 +7,7 @@ pool:
 variables:
   proyecto: '**/*.csproj'
   buildConfiguration: 'Release'
-  dotnetVersion: '10.0.x'
+  dotnetVersion: '8.0.x' # Asegúrate de que coincida con la versión de .NET de tu proyecto
 
 stages:
 # 1. ETAPA DE COMPILACIÓN (CI)
@@ -23,9 +22,10 @@ stages:
         version: '$(dotnetVersion)'
 
     - task: DotNetCoreCLI@2
+      displayName: 'Publicar Proyecto .NET'
       inputs:
         command: 'publish'
-        publishWebProjects: true
+        publishWebProjects: false  # Se cambia a false para que use el patrón 'projects'
         projects: '$(proyecto)'
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
@@ -53,7 +53,7 @@ stages:
 
     - task: AzureWebApp@1
       inputs:
-        azureSubscription: 'ContinuoAzore' # Nombre de la conexión
+        azureSubscription: 'ContinuoAzore'
         appType: 'webApp'
-        appName: 'API-Web-Continuo-EatUs3'    # Nombre de tu App Service
+        appName: 'API-Web-Continuo-EatUs3'
         package: '$(System.ArtifactsDirectory)/drop/*.zip'
