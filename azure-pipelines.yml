@@ -5,7 +5,6 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  proyecto: '**/veterinariweb.csproj'
   buildConfiguration: 'Release'
   dotnetVersion: '8.0.x'
 
@@ -26,7 +25,7 @@ stages:
       inputs:
         command: 'publish'
         publishWebProjects: false
-        projects: '$(proyecto)'
+        projects: '**/*veterinariweb.csproj' # Busca el archivo en cualquier nivel de subcarpetas
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
 
