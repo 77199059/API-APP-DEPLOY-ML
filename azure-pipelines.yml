@@ -7,7 +7,7 @@ pool:
 variables:
   proyecto: '**/veterinariweb.csproj'
   buildConfiguration: 'Release'
-  dotnetVersion: '8.0.x' # Asegúrate de que coincida con la versión de .NET de tu proyecto
+  dotnetVersion: '8.0.x'
 
 stages:
 # 1. ETAPA DE COMPILACIÓN (CI)
@@ -22,10 +22,10 @@ stages:
         version: '$(dotnetVersion)'
 
     - task: DotNetCoreCLI@2
-      displayName: 'Publicar Proyecto .NET'
+      displayName: 'Publicar Proyecto Web'
       inputs:
         command: 'publish'
-        publishWebProjects: false  # Se cambia a false para que use el patrón 'projects'
+        publishWebProjects: false
         projects: '$(proyecto)'
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
